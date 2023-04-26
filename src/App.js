@@ -1,31 +1,23 @@
 import { useState } from "react";
 import "./App.css";
-import Cards from "./components/Card";
-import {
-  Input,
-  Textarea,
-  Button,
-  Container,
-  Stack,
-  List,
-  Grid,
-} from "@mantine/core";
+import Cards from "./components/Cards";
+import { Input, Textarea, Button, Container, Stack, Grid } from "@mantine/core";
 
 let products = [
   {
+    id: 0,
+    title: "Kart 1",
+    detail: "Kart 1 detaylı bilgisi",
+  },
+  {
     id: 1,
-    title: "Otel 1",
-    detail: "Otel 1 detaylı bilgisi",
+    title: "Kart 2",
+    detail: "Kart 2 detaylı bilgisi",
   },
   {
     id: 2,
-    title: "Otel 2",
-    detail: "Otel 2 detaylı bilgisi",
-  },
-  {
-    id: 3,
-    title: "Otel 3",
-    detail: "Otel 3 detaylı bilgisi",
+    title: "Kart 3",
+    detail: "Kart 3 detaylı bilgisi",
   },
 ];
 
@@ -33,11 +25,10 @@ const App = () => {
   const [inputTitle, setTitle] = useState("");
   const [inputDetail, setDetail] = useState("");
   const [list, setList] = useState(products);
+
   const ekle = () => {
-    setTitle("");
-    setDetail("");
     const copyList = [...list];
-    let i = copyList.length + 1;
+    let i = copyList.length;
 
     copyList.push({
       id: i,
@@ -70,13 +61,25 @@ const App = () => {
             placeholder="Kart açıklaması giriniz"
             onChange={(e) => setDetail(e.target.value)}
           />
-          <Button onClick={ekle}>Ekle</Button>
+          <Button onClick={ekle}>Oluştur</Button>
         </Stack>
 
         <Grid justify="center" gutter="lg">
           {list.map((p) => (
             <Grid.Col span={3} key={p.id}>
-              <Cards title={p.title} detail={p.detail} />
+              <Cards
+                title={p.title}
+                detail={p.detail}
+                delete={() => {
+                  let i = p.id;
+
+                  const copyList = [...list];
+                  copyList.splice(i, 1);
+
+                  setList(copyList);
+                  //standart olan kartları siliyor ama yeni eklediklerimizi silmiyor
+                }}
+              />
             </Grid.Col>
           ))}
         </Grid>

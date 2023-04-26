@@ -1,5 +1,5 @@
-import "./Card.css";
-import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import "./Cards.css";
+import { Card, Image, Text, Button, Group, CloseButton } from "@mantine/core";
 
 // const Card = ({ title, detail, value }) => {
 //   return (
@@ -12,7 +12,7 @@ import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 //   );
 // };
 
-function Cards({ title, detail, key }) {
+const Cards = (props) => {
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
@@ -24,14 +24,14 @@ function Cards({ title, detail, key }) {
       </Card.Section>
 
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>{title}</Text>
+        <Text weight={500}>{props.title}</Text>
         {/* <Badge color="pink" variant="light">
-          on sale
         </Badge> */}
+        <CloseButton aria-label="Close model" onClick={props.delete} />
       </Group>
 
       <Text size="sm" color="dimmed">
-        {detail}
+        {props.detail}
       </Text>
 
       <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -39,6 +39,6 @@ function Cards({ title, detail, key }) {
       </Button>
     </Card>
   );
-}
+};
 
 export default Cards;
